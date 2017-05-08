@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_PROTOCOL_H__
-#define __SQLAGENT_PROTOCOL_H__
+#ifndef __HETAIRA_PROTOCOL_H__
+#define __HETAIRA_PROTOCOL_H__
 
 
 #include "buffer.h"
@@ -56,4 +56,4 @@ private:
 };
 } // end of namespace common
 } // end of namespace e7
-#endif // __SQLAGENT_PROTOCOL_H__
+#endif // __HETAIRA_PROTOCOL_H__

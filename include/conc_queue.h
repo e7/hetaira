@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_CONC_QUEUE_H__
-#define __SQLAGENT_CONC_QUEUE_H__
+#ifndef __HETAIRA_CONC_QUEUE_H__
+#define __HETAIRA_CONC_QUEUE_H__
 
 
 #include "common.h"
@@ -42,4 +42,4 @@ private:
     pthread_mutex_t mutex;
     std::list<void *> queue;
 };
-#endif // __SQLAGENT_CONC_QUEUE_H__
+#endif // __HETAIRA_CONC_QUEUE_H__

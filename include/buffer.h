@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_BUFFER_H__
-#define __SQLAGENT_BUFFER_H__
+#ifndef __HETAIRA_BUFFER_H__
+#define __HETAIRA_BUFFER_H__
 
 
 #include "smart_pointer.h"
@@ -79,4 +79,4 @@ protected:
 }; // end of class buffer_::buffer
 } // end of namespace common
 } // end of namespace e7
-#endif // __SQLAGENT_BUFFER_H__
+#endif // __HETAIRA_BUFFER_H__

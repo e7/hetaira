@@ -1,5 +1,5 @@
-#ifndef __CRACK97_COMMON_H__
-#define __CRACK97_COMMON_H__
+#ifndef __HETAIRA_COMMON_H__
+#define __HETAIRA_COMMON_H__
 
 
 #include <sys/types.h>
@@ -185,4 +185,4 @@ private:
     T *rsc;
 }; // end of e7::common::raii
 } // end of namespace e7
-#endif // __CRACK97_COMMON_H__
+#endif // __HETAIRA_COMMON_H__

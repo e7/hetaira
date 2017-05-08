@@ -8,7 +8,7 @@
 #include "business/inner_cmnc.h"
 
 
-namespace sqlagent {
+namespace hetaira {
 extern volatile uintptr_t sig_quit; // 退出信号标识
 }
 
@@ -16,9 +16,9 @@ extern volatile uintptr_t sig_quit; // 退出信号标识
 using e7::common::fd_release;
 using e7::common::single_raii;
 
-using sqlagent::reciever_arg;
-using sqlagent::connection;
-using sqlagent::naked_conn_map;
+using hetaira::reciever_arg;
+using hetaira::connection;
+using hetaira::naked_conn_map;
 
 
 void *reciever_thread(void *arg)
@@ -42,7 +42,7 @@ void *reciever_thread(void *arg)
     };
     ASSERT(0 == epoll_ctl(reactor, EPOLL_CTL_ADD, args->channel, &ee_chan));
 
-    while (! sqlagent::sig_quit) {
+    while (! hetaira::sig_quit) {
         nevents = ::epoll_wait(reactor, ee_cache.data(), ee_cache.size(), 20);
         if (-1 == nevents) {
             continue;
@@ -66,7 +66,7 @@ void *reciever_thread(void *arg)
                 ASSERT(0 == E7_SET_NONBLOCK(new_conn->sock));
 
                 if (-1 == new_conn->init(reactor)) {
-                    smart_pointer<sqlagent::connection> auto_free(new_conn);
+                    smart_pointer<hetaira::connection> auto_free(new_conn);
                     continue;
                 }
 
@@ -82,13 +82,13 @@ void *reciever_thread(void *arg)
                 ee_cache[i].data.ptr
             );
             if (ee_cache[i].events & (EPOLLHUP | EPOLLERR)) {
-                smart_pointer<sqlagent::connection> auto_free(conn);
+                smart_pointer<hetaira::connection> auto_free(conn);
                 args->act->on_closing(conn);
                 continue;
             }
             if (ee_cache[i].events & EPOLLRDHUP) {
                 // 对方断开连接
-                smart_pointer<sqlagent::connection> auto_free(conn);
+                smart_pointer<hetaira::connection> auto_free(conn);
                 args->act->on_closing(conn);
                 continue;
             }
@@ -101,7 +101,7 @@ void *reciever_thread(void *arg)
 }
 
 
-namespace sqlagent {
+namespace hetaira {
 void dft_action::on_connected(connection *conn)
 {
     fprintf(stderr, "new connection\n");

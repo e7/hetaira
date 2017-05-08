@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_POOL_H__
-#define __SQLAGENT_POOL_H__
+#ifndef __HETAIRA_POOL_H__
+#define __HETAIRA_POOL_H__
 
 
 #include "smart_pointer.h"
@@ -60,4 +60,4 @@ private:
 };
 } // end of namespace common
 } // end of namespace e7
-#endif // __SQLAGENT_POOL_H__
+#endif // __HETAIRA_POOL_H__

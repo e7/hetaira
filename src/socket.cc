@@ -2,7 +2,7 @@
 #include "singleton.h"
 
 
-namespace sqlagent {
+namespace hetaira {
 naked_conn_map_t *naked_conn_map;
 
 

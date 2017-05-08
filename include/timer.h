@@ -1,5 +1,5 @@
-#ifndef __U2USH_TIMER_H__
-#define __U2USH_TIMER_H__
+#ifndef __HETAIRA_TIMER_H__
+#define __HETAIRA_TIMER_H__
 
 
 #include <cstdint>
@@ -69,4 +69,4 @@ public:
 };
 } // end of namespace u2ush::timer_heap_
 } // end of namespace u2ush
-#endif // __U2USH_TIMER_H__
+#endif // __HETAIRA_TIMER_H__

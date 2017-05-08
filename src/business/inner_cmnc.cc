@@ -6,7 +6,7 @@ using e7::common::proto_sjsonb;
 using e7::common::smart_pointer;
 
 
-namespace sqlagent {
+namespace hetaira {
 void inner_service(connection *conn)
 {
     cJSON *req;

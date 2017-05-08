@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_SOCKET_H__
-#define __SQLAGENT_SOCKET_H__
+#ifndef __HETAIRA_SOCKET_H__
+#define __HETAIRA_SOCKET_H__
 
 
 #include <sys/types.h>
@@ -18,7 +18,7 @@
             fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK)
 
 
-namespace sqlagent {
+namespace hetaira {
 // 连接的业务类型
 enum {
     BUSI_INNER = 1,
@@ -57,5 +57,5 @@ public:
 
 typedef std::map< int, e7::common::smart_pointer<connection> > naked_conn_map_t;
 extern naked_conn_map_t *naked_conn_map; // 裸连接集
-} // end of namespace sqlagent
-#endif // __SQLAGENT_SOCKET_H__
+} // end of namespace hetaira
+#endif // __HETAIRA_SOCKET_H__

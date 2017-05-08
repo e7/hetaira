@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_RAII_H__
-#define __SQLAGENT_RAII_H__
+#ifndef __HETAIRA_RAII_H__
+#define __HETAIRA_RAII_H__
 
 #include "common.h"
 
@@ -49,4 +49,4 @@ private:
     T rsc;
     R release;
 }; // end of e7::common::single_raii
-#endif // __SQLAGENT_RAII_H__
+#endif // __HETAIRA_RAII_H__

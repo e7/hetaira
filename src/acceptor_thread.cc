@@ -6,7 +6,7 @@
 #include "socket.h"
 
 
-namespace sqlagent {
+namespace hetaira {
 extern int reciever_chans[N_RECIEVERS][2]; // reciever线程组通道
 }
 
@@ -17,10 +17,10 @@ using e7::common::fd_release;
 using e7::common::single_raii;
 using e7::common::smart_pointer;
 
-using sqlagent::connection;
-using sqlagent::acceptor_grp_arg;
-using sqlagent::acceptor_arg;
-using sqlagent::reciever_chans;
+using hetaira::connection;
+using hetaira::acceptor_grp_arg;
+using hetaira::acceptor_arg;
+using hetaira::reciever_chans;
 
 
 void *acceptor_group_thread(void *arg)
@@ -112,7 +112,7 @@ void *acceptor_thread(void *arg)
     lsn_ee.events = EPOLLIN; // 水平触发
     lsn_ee.data.fd = lsn_fd;
     ::epoll_ctl(reactor, EPOLL_CTL_ADD, lsn_fd, &lsn_ee);
-    while (! sqlagent::sig_quit) {
+    while (! hetaira::sig_quit) {
         nevents = ::epoll_wait(reactor, ee_cache, ARRAY_COUNT(ee_cache), 20);
         if (-1 == nevents) {
             continue;

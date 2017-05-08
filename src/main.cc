@@ -31,7 +31,7 @@ using e7::common::proto_sjsonb;
 using sql::mysql::MySQL_Driver;
 
 
-namespace sqlagent {
+namespace hetaira {
 pthread_t tid_sig; // 信号线程id
 pthread_t tid_oaccpt_grp; // outer-acceptor线程组
 pthread_t tid_iaccpt_grp; // inner-acceptor线程组
@@ -171,7 +171,7 @@ int main(int argc, char *argv[], char *env[])
     // 创建inner监听线程组
     tmperr = ::pthread_create(
         &tid_iaccpt_grp, NULL, &acceptor_group_thread,
-        new acceptor_grp_arg(8054, N_ACCEPTORS, sqlagent::BUSI_INNER)
+        new acceptor_grp_arg(8054, N_ACCEPTORS, hetaira::BUSI_INNER)
     );
     if (tmperr) {
         return EXIT_FAILURE;
@@ -217,18 +217,18 @@ int main(int argc, char *argv[], char *env[])
     int rslt = 0;
 
     // 全局初始化
-    sqlagent::sig_quit = false;
-    sqlagent::sig_now = 0;
+    hetaira::sig_quit = false;
+    hetaira::sig_now = 0;
 
-    sqlagent::naked_conn_map = new sqlagent::naked_conn_map_t[N_RECIEVERS];
-    sqlagent::ct_singleton_mng.append(
-        "sqlagent.naked_conn_map", sqlagent::naked_conn_map
+    hetaira::naked_conn_map = new hetaira::naked_conn_map_t[N_RECIEVERS];
+    hetaira::ct_singleton_mng.append(
+        "hetaira.naked_conn_map", hetaira::naked_conn_map
     );
 
-    sqlagent::mysql_dri = sql::mysql::get_mysql_driver_instance();
+    hetaira::mysql_dri = sql::mysql::get_mysql_driver_instance();
 
     // run
-    rslt = sqlagent::main(argc, argv, env);
+    rslt = hetaira::main(argc, argv, env);
 
     return rslt;
 }

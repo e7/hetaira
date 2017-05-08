@@ -1,5 +1,5 @@
-#ifndef __CRACK97_SMART_POINTER_H__
-#define __CRACK97_SMART_POINTER_H__
+#ifndef __HETAIRA_SMART_POINTER_H__
+#define __HETAIRA_SMART_POINTER_H__
 
 #include <pthread.h>
 
@@ -151,4 +151,4 @@ private:
 
 template <typename TYPE> typename e7::common::smart_pointer<TYPE>
 e7::common::smart_pointer<TYPE>::null_pointer;
-#endif // __CRACK97_SMART_POINTER_H__
+#endif // __HETAIRA_SMART_POINTER_H__

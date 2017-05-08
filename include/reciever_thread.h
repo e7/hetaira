@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_RECIEVER_THREAD_H__
-#define __SQLAGENT_RECIEVER_THREAD_H__
+#ifndef __HETAIRA_RECIEVER_H__
+#define __HETAIRA_RECIEVER_H__
 
 
 #include "socket.h"
@@ -8,7 +8,7 @@
 using e7::common::smart_pointer;
 
 
-namespace sqlagent {
+namespace hetaira {
 namespace iaction_ {
 class iaction;
 }
@@ -26,7 +26,7 @@ typedef dft_action_::dft_action dft_action;
 }
 
 
-namespace sqlagent {
+namespace hetaira {
 class iaction_::iaction : public e7::common::object
 {
     friend smart_pointer<iaction>;
@@ -63,4 +63,4 @@ public:
 
 
 extern void *reciever_thread(void *arg);
-#endif // __SQLAGENT_RECIEVER_THREAD_H__
+#endif // __HETAIRA_RECIEVER_H__

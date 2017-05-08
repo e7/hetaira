@@ -1,11 +1,11 @@
-#ifndef __SQLAGENT_ACCEPTOR_THREAD_H__
-#define __SQLAGENT_ACCEPTOR_THREAD_H__
+#ifndef __HETAIRA_ACCEPTOR_H__
+#define __HETAIRA_ACCEPTOR_H__
 
 
 #include "reciever_thread.h"
 
 
-namespace sqlagent {
+namespace hetaira {
 namespace acceptor_grp_arg_ {
     class acceptor_grp_arg;
 }
@@ -18,7 +18,7 @@ typedef acceptor_arg_::acceptor_arg acceptor_arg;
 }
 
 
-namespace sqlagent {
+namespace hetaira {
 extern volatile uintptr_t sig_quit; // 退出信号标识
 
 
@@ -57,4 +57,4 @@ public:
 
 
 extern void *acceptor_group_thread(void *arg);
-#endif // __SQLAGENT_ACCEPTOR_THREAD_H__
+#endif // __HETAIRA_ACCEPTOR_H__

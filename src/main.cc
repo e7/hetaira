@@ -2,10 +2,6 @@
 #include <signal.h>
 #include <linux/input.h>
 
-#include <mysql_connection.h>
-#include <mysql_driver.h>
-#include <mysql_error.h>
-
 #include "conf.h"
 #include "pool.h"
 #include "protocol.h"
@@ -28,8 +24,6 @@ using e7::common::obj_pool;
 using e7::common::conc_queue;
 using e7::common::proto_sjsonb;
 
-using sql::mysql::MySQL_Driver;
-
 
 namespace hetaira {
 pthread_t tid_sig; // 信号线程id
@@ -37,7 +31,6 @@ pthread_t tid_oaccpt_grp; // outer-acceptor线程组
 pthread_t tid_iaccpt_grp; // inner-acceptor线程组
 pthread_t tids_recv[N_RECIEVERS]; // reciever线程id
 int reciever_chans[N_RECIEVERS][2]; // reciever线程组通道
-MySQL_Driver *mysql_dri;
 
 volatile uintptr_t sig_quit; // 退出信号标识
 volatile uint64_t sig_now; // 当前时间
@@ -224,8 +217,6 @@ int main(int argc, char *argv[], char *env[])
     hetaira::ct_singleton_mng.append(
         "hetaira.naked_conn_map", hetaira::naked_conn_map
     );
-
-    hetaira::mysql_dri = sql::mysql::get_mysql_driver_instance();
 
     // run
     rslt = hetaira::main(argc, argv, env);

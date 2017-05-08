@@ -11,6 +11,4 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 # set(CMAKE_EXE_LINKER_FLAGS "-Wl,-static -lcjson -Wl,-call_shared")
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(/usr/local/mysql-connector-c++/include)
-link_directories(/usr/local/mysql-connector-c++/lib)
 add_subdirectory(src)

@@ -14,10 +14,7 @@ static void *acceptor_thread(void *arg);
 
 
 using e7::common::fd_release;
-using e7::common::dels_release;
-using e7::common::dela_release;
 using e7::common::single_raii;
-using e7::common::array_raii;
 using e7::common::smart_pointer;
 
 using sqlagent::connection;
@@ -70,10 +67,7 @@ void *acceptor_group_thread(void *arg)
 
     // 创建监听线程
     int tmperr;
-    pthread_t *tids = new pthread_t[auto_free_args->nthread];
-    array_raii< pthread_t *, dela_release<pthread_t> > auto_free_tids(
-        tids, auto_free_args->nthread
-    );
+    std::vector<pthread_t> tids(auto_free_args->nthread);
 
     for (int i = 0; i < auto_free_args->nthread; ++i) {
         tmperr = ::pthread_create(

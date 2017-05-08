@@ -1,9 +1,9 @@
-#ifndef __SQLAGENT_SMART_POINTER_H__
-#define __SQLAGENT_SMART_POINTER_H__
+#ifndef __CRACK97_SMART_POINTER_H__
+#define __CRACK97_SMART_POINTER_H__
 
 #include <pthread.h>
 
-#include "raii.h"
+#include "common.h"
 
 
 template <typename TYPE> class e7::common::smart_pointer
@@ -21,15 +21,15 @@ public:
 
         e7::common::inheritance_ship<object, TYPE> inh;
         if (! inh) {
-            ASSERT(0);
+            assert(0);
         }
         __obj__ = reinterpret_cast<TYPE *>(obj);
 
         this->__count_mutex__ = __obj__->__count_mutex__;
 
-        ASSERT(0 == pthread_mutex_lock(this->__count_mutex__));
+        assert(0 == pthread_mutex_lock(this->__count_mutex__));
         __obj__->__ref_increase__();
-        ASSERT(0 == pthread_mutex_unlock(this->__count_mutex__));
+        assert(0 == pthread_mutex_unlock(this->__count_mutex__));
 
         return;
     }
@@ -49,9 +49,9 @@ public:
             this->__obj__ = other.__obj__;
             this->__count_mutex__ = other.__count_mutex__;
 
-            ASSERT(0 == pthread_mutex_lock(this->__count_mutex__));
+            assert(0 == pthread_mutex_lock(this->__count_mutex__));
             this->__obj__->__ref_increase__();
-            ASSERT(0 == pthread_mutex_unlock(this->__count_mutex__));
+            assert(0 == pthread_mutex_unlock(this->__count_mutex__));
         }
 
         return *this;
@@ -109,9 +109,9 @@ public:
             __obj__ = new TYPE(*static_cast<smart_pointer>(other));
             __count_mutex__ = __obj__->__count_mutex__;
 
-            ASSERT(0 == pthread_mutex_lock(__count_mutex__));
+            assert(0 == pthread_mutex_lock(__count_mutex__));
             __obj__->__ref_increase__();
-            ASSERT(0 == pthread_mutex_unlock(__count_mutex__));
+            assert(0 == pthread_mutex_unlock(__count_mutex__));
         }
 
         return;
@@ -126,14 +126,14 @@ private:
             return;
         }
 
-        ASSERT(0 == pthread_mutex_lock(this->__count_mutex__));
+        assert(0 == pthread_mutex_lock(this->__count_mutex__));
         __obj__->__ref_decrease__();
         ref_count = __obj__->__get_ref_count__();
         if (0 == ref_count) {
             delete __obj__;
         }
         __obj__ = NULL;
-        ASSERT(0 == pthread_mutex_unlock(this->__count_mutex__));
+        assert(0 == pthread_mutex_unlock(this->__count_mutex__));
 
         if (0 == ref_count) {
             pthread_mutex_destroy(this->__count_mutex__);
@@ -151,4 +151,4 @@ private:
 
 template <typename TYPE> typename e7::common::smart_pointer<TYPE>
 e7::common::smart_pointer<TYPE>::null_pointer;
-#endif // __SQLAGENT_SMART_POINTER_H__
+#endif // __CRACK97_SMART_POINTER_H__

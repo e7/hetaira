@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_COMMON_H__
-#define __SQLAGENT_COMMON_H__
+#ifndef __CRACK97_COMMON_H__
+#define __CRACK97_COMMON_H__
 
 
 #include <sys/types.h>
@@ -9,20 +9,20 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
 
-#include <map>
 #include <vector>
+#include <map>
 #include <string>
 
+
+#define ARRAY_COUNT(x) (sizeof(x)/sizeof((x)[0]))
 #define ASSERT(e)       do {if (! (e)) {::abort();}} while (0)
 #define ASSERT_NOT(e)   do {if (e) {::abort();}} while (0)
-#define ARRAY_COUNT(a)  (sizeof(a) / sizeof(a[0]))
 
 
 namespace e7 {
 namespace common {
-typedef std::map<std::string, std::string> str2str;
-
 namespace deny_copyable_ {
     class deny_copyable;
 }
@@ -35,8 +35,14 @@ typedef object_::object object;
 
 template <typename base, typename derived> class inheritance_ship;
 template <typename TYPE> class smart_pointer;
-} // end of namespace common
-} // end of namespace e7
+
+namespace fdraii_ {
+    class fdraii;
+}
+typedef fdraii_::fdraii fdraii;
+
+template <typename TYPE> class raii;
+} // end of namespace e7::common
 
 
 template <typename base, typename derived> class e7::common::inheritance_ship
@@ -92,8 +98,7 @@ private:
 }; // end of e7::common::deny_copyable_::deny_copyable
 
 
-// 从object继承的对象被用于智能指针，而指针是无需
-// 拷贝构造的，或者拷贝智能指针对象
+// 从object继承的对象用于智能指针，而指针是无需拷贝构造的，或者拷贝智能指针对象
 class e7::common::object_::object : public e7::common::deny_copyable
 {
      template <typename TYPE> friend class e7::common::smart_pointer;
@@ -105,16 +110,12 @@ public:
         __count_mutex__ = (pthread_mutex_t *)calloc(1, sizeof(pthread_mutex_t));
         pthread_mutex_init(__count_mutex__, NULL);
     }
-
     explicit object(object const &other)
         : __ref_count__(0), __count_mutex__(NULL)
     {
         __count_mutex__ = (pthread_mutex_t *)calloc(1, sizeof(pthread_mutex_t));
         pthread_mutex_init(__count_mutex__, NULL);
     }
-
-    int init(void) {return 0;}
-
     virtual ~object(void)
     {}
 
@@ -141,6 +142,47 @@ private:
 
 private:
     intptr_t __ref_count__;
-    pthread_mutex_t *__count_mutex__; // 可用cas汇编指令或gcc内置原子操作替代
+    pthread_mutex_t *__count_mutex__;
 }; // end of e7::common::object_::object
-#endif // __SQLAGENT_COMMON_H__
+
+
+
+class e7::common::fdraii_::fdraii : public e7::common::deny_copyable
+{
+public:
+    explicit fdraii(int fd) : rsc(fd) {}
+    virtual ~fdraii(void)
+    {
+        static_cast<void>(::close(rsc));
+    }
+
+    int get(void) const
+    {
+        return rsc;
+    }
+
+private:
+    int rsc;
+}; // end of e7::common::fdraii
+
+
+template <typename T>
+class e7::common::raii : public e7::common::deny_copyable
+{
+public:
+    explicit raii<T>(T *obj) : rsc(obj) {}
+    virtual ~raii<T>(void)
+    {
+        delete this->rsc;
+    }
+
+    T *get(void) const
+    {
+        return rsc;
+    }
+
+private:
+    T *rsc;
+}; // end of e7::common::raii
+} // end of namespace e7
+#endif // __CRACK97_COMMON_H__

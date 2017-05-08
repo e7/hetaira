@@ -23,10 +23,7 @@
 
 using e7::common::smart_pointer;
 using e7::common::fd_release;
-using e7::common::dels_release;
-using e7::common::dela_release;
 using e7::common::single_raii;
-using e7::common::array_raii;
 using e7::common::obj_pool;
 using e7::common::conc_queue;
 using e7::common::proto_sjsonb;

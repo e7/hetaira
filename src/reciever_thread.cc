@@ -14,9 +14,7 @@ extern volatile uintptr_t sig_quit; // 退出信号标识
 
 
 using e7::common::fd_release;
-using e7::common::dela_release;
 using e7::common::single_raii;
-using e7::common::array_raii;
 
 using sqlagent::reciever_arg;
 using sqlagent::connection;
@@ -37,10 +35,7 @@ void *reciever_thread(void *arg)
     // 事件循环
     int nevents;
     int ee_cache_sz = MAX_CONNECTIONS * (N_ACCEPTORS * 2);
-    epoll_event *ee_cache = new epoll_event[ee_cache_sz];
-    array_raii< epoll_event *, dela_release<epoll_event> > auto_free_ee_cache(
-        ee_cache, ee_cache_sz
-    );
+    std::vector<epoll_event> ee_cache(ee_cache_sz);
 
     epoll_event ee_chan = {
         EPOLLIN, {fd:args->channel}
@@ -48,7 +43,7 @@ void *reciever_thread(void *arg)
     ASSERT(0 == epoll_ctl(reactor, EPOLL_CTL_ADD, args->channel, &ee_chan));
 
     while (! sqlagent::sig_quit) {
-        nevents = ::epoll_wait(reactor, ee_cache, ee_cache_sz, 20);
+        nevents = ::epoll_wait(reactor, ee_cache.data(), ee_cache.size(), 20);
         if (-1 == nevents) {
             continue;
         }

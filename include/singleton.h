@@ -1,5 +1,5 @@
-#ifndef __SQLAGENT_SINGLETON_H__
-#define __SQLAGENT_SINGLETON_H__
+#ifndef __U2USH_SINGLETON_H__
+#define __U2USH_SINGLETON_H__
 
 
 #include "common.h"
@@ -47,9 +47,8 @@ private:
 
 
 // 全局变量
-#define GWF_MAX_CONNECTION          (1 << 0)
-namespace sqlagent {
-    extern uint64_t g_ct_now;
-    extern e7::common::singleton_mng g_ct_singleton_mng;
+namespace u2ush {
+    extern uint64_t g_now;
+    extern e7::common::singleton_mng g_singleton_mng;
 }
-#endif // __SQLAGENT_SINGLETON_H__
+#endif // __U2USH_SINGLETON_H__

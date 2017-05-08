@@ -2,7 +2,6 @@
 #include "smart_pointer.h"
 
 
-using e7::common::array_raii;
 using e7::common::smart_pointer;
 
 

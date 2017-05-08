@@ -8,9 +8,6 @@ using e7::common::buffer;
 using e7::common::proto_head;
 using e7::common::proto_naked;
 using e7::common::proto_sjsonb;
-using e7::common::cmem_release;
-using e7::common::dela_release;
-using e7::common::array_raii;
 using e7::common::smart_pointer;
 
 
@@ -96,11 +93,14 @@ int proto_naked::decode(buffer *stream, buffer **content)
 
 buffer *proto_sjsonb::encode(cJSON *content)
 {
+    buffer *rslt;
+
     char *s = ::cJSON_PrintUnformatted(content);
     ASSERT(s);
-    single_raii<char *, cmem_release> auto_free_s(s);
+    rslt = proto_naked::encode_mem(s, ::strlen(s));
+    free(s);
 
-    return proto_naked::encode_mem(s, ::strlen(s));
+    return rslt;
 }
 
 

@@ -1,15 +1,16 @@
-#ifndef __SQLAGENT_TIMER_H__
-#define __SQLAGENT_TIMER_H__
+#ifndef __U2USH_TIMER_H__
+#define __U2USH_TIMER_H__
 
 
 #include <cstdint>
 
 #include <queue>
+#include <iostream>
 
 #include "smart_pointer.h"
 
 
-namespace sqlagent {
+namespace u2ush {
 namespace timer_heap_ {
 class timer;
 class i_on_timeout;
@@ -23,7 +24,7 @@ typedef timer_heap_::timer_heap timer_heap;
 }
 
 
-namespace sqlagent {
+namespace u2ush {
 namespace timer_heap_ {
 class cmp_timer
 {
@@ -66,6 +67,6 @@ public:
                          std::vector< e7::common::smart_pointer<timer> >,
                          cmp_timer> heap;
 };
-} // end of namespace sqlagent::timer_heap_
-} // end of namespace sqlagent
-#endif // __SQLAGENT_TIMER_H__
+} // end of namespace u2ush::timer_heap_
+} // end of namespace u2ush
+#endif // __U2USH_TIMER_H__
